@@ -1,0 +1,115 @@
+-- Create database
+CREATE DATABASE IF NOT EXISTS movie_db;
+USE movie_db;
+
+-- Create tables
+CREATE TABLE IF NOT EXISTS DIRECTOR (
+    Dir_id INT PRIMARY KEY,
+    Dir_Name VARCHAR(100) NOT NULL,
+    Dir_Phone VARCHAR(20)
+);
+
+CREATE TABLE IF NOT EXISTS MOVIES (
+    Mov_id INT PRIMARY KEY,
+    Mov_Title VARCHAR(100) NOT NULL,
+    Mov_Year INT,
+    Mov_Lang VARCHAR(50),
+    Dir_id INT,
+    FOREIGN KEY (Dir_id) REFERENCES DIRECTOR(Dir_id)
+);
+
+CREATE TABLE IF NOT EXISTS ACTOR (
+    Act_id INT PRIMARY KEY,
+    Act_Name VARCHAR(100) NOT NULL,
+    Act_Gender VARCHAR(10)
+);
+
+CREATE TABLE IF NOT EXISTS MOVIE_CAST (
+    Act_id INT,
+    Mov_id INT,
+    Role VARCHAR(100),
+    PRIMARY KEY (Act_id, Mov_id),
+    FOREIGN KEY (Act_id) REFERENCES ACTOR(Act_id),
+    FOREIGN KEY (Mov_id) REFERENCES MOVIES(Mov_id)
+);
+
+CREATE TABLE IF NOT EXISTS RATING (
+    Mov_id INT,
+    Rev_Stars DECIMAL(2,1),
+    PRIMARY KEY (Mov_id),
+    FOREIGN KEY (Mov_id) REFERENCES MOVIES(Mov_id)
+);
+
+-- Insert sample data
+-- Directors
+INSERT INTO DIRECTOR VALUES (1, 'Hitchcock', '123-456-7890');
+INSERT INTO DIRECTOR VALUES (2, 'Steven Spielberg', '123-456-7891');
+INSERT INTO DIRECTOR VALUES (3, 'Christopher Nolan', '123-456-7892');
+INSERT INTO DIRECTOR VALUES (4, 'Martin Scorsese', '123-456-7893');
+INSERT INTO DIRECTOR VALUES (5, 'Quentin Tarantino', '123-456-7894');
+
+-- Movies
+INSERT INTO MOVIES VALUES (1, 'Psycho', 1960, 'English', 1);
+INSERT INTO MOVIES VALUES (2, 'Vertigo', 1958, 'English', 1);
+INSERT INTO MOVIES VALUES (3, 'Jurassic Park', 1993, 'English', 2);
+INSERT INTO MOVIES VALUES (4, 'E.T.', 1982, 'English', 2);
+INSERT INTO MOVIES VALUES (5, 'Schindler''s List', 1993, 'English', 2);
+INSERT INTO MOVIES VALUES (6, 'Inception', 2010, 'English', 3);
+INSERT INTO MOVIES VALUES (7, 'Interstellar', 2014, 'English', 3);
+INSERT INTO MOVIES VALUES (8, 'The Departed', 2006, 'English', 4);
+INSERT INTO MOVIES VALUES (9, 'Goodfellas', 1990, 'English', 4);
+INSERT INTO MOVIES VALUES (10, 'Django Unchained', 2012, 'English', 5);
+INSERT INTO MOVIES VALUES (11, 'The Hateful Eight', 2015, 'English', 5);
+INSERT INTO MOVIES VALUES (12, 'Lincoln', 2012, 'English', 2);
+INSERT INTO MOVIES VALUES (13, 'Rear Window', 1954, 'English', 1);
+INSERT INTO MOVIES VALUES (14, 'Bridge of Spies', 2015, 'English', 2);
+INSERT INTO MOVIES VALUES (15, 'The Birds', 1963, 'English', 1);
+
+-- Actors
+INSERT INTO ACTOR VALUES (1, 'Leonardo DiCaprio', 'Male');
+INSERT INTO ACTOR VALUES (2, 'Tom Hanks', 'Male');
+INSERT INTO ACTOR VALUES (3, 'Meryl Streep', 'Female');
+INSERT INTO ACTOR VALUES (4, 'Anthony Perkins', 'Male');
+INSERT INTO ACTOR VALUES (5, 'James Stewart', 'Male');
+INSERT INTO ACTOR VALUES (6, 'Samuel L Jackson', 'Male');
+INSERT INTO ACTOR VALUES (7, 'Brad Pitt', 'Male');
+INSERT INTO ACTOR VALUES (8, 'Jennifer Lawrence', 'Female');
+INSERT INTO ACTOR VALUES (9, 'Matt Damon', 'Male');
+INSERT INTO ACTOR VALUES (10, 'Tippi Hedren', 'Female');
+
+-- Movie Cast
+INSERT INTO MOVIE_CAST VALUES (1, 6, 'Cobb');
+INSERT INTO MOVIE_CAST VALUES (1, 8, 'Billy Costigan');
+INSERT INTO MOVIE_CAST VALUES (2, 3, 'Dr. Alan Grant');
+INSERT INTO MOVIE_CAST VALUES (2, 4, 'Elliott');
+INSERT INTO MOVIE_CAST VALUES (2, 5, 'Oskar Schindler');
+INSERT INTO MOVIE_CAST VALUES (2, 14, 'James B. Donovan');
+INSERT INTO MOVIE_CAST VALUES (3, 12, 'Mary Todd Lincoln');
+INSERT INTO MOVIE_CAST VALUES (4, 1, 'Norman Bates');
+INSERT INTO MOVIE_CAST VALUES (5, 2, 'John "Scottie" Ferguson');
+INSERT INTO MOVIE_CAST VALUES (5, 13, 'L.B. Jefferies');
+INSERT INTO MOVIE_CAST VALUES (6, 10, 'Stephen');
+INSERT INTO MOVIE_CAST VALUES (6, 11, 'Major Marquis Warren');
+INSERT INTO MOVIE_CAST VALUES (7, 9, 'Henry Hill');
+INSERT INTO MOVIE_CAST VALUES (7, 10, 'Dr. King Schultz');
+INSERT INTO MOVIE_CAST VALUES (8, 7, 'Dr. Amelia Brand');
+INSERT INTO MOVIE_CAST VALUES (9, 3, 'Dr. Ian Malcolm');
+INSERT INTO MOVIE_CAST VALUES (9, 9, 'Colin Sullivan');
+INSERT INTO MOVIE_CAST VALUES (10, 15, 'Melanie Daniels');
+
+-- Ratings
+INSERT INTO RATING VALUES (1, 4.5);
+INSERT INTO RATING VALUES (2, 4.3);
+INSERT INTO RATING VALUES (3, 4.7);
+INSERT INTO RATING VALUES (4, 4.2);
+INSERT INTO RATING VALUES (5, 4.9);
+INSERT INTO RATING VALUES (6, 4.8);
+INSERT INTO RATING VALUES (7, 4.6);
+INSERT INTO RATING VALUES (8, 4.5);
+INSERT INTO RATING VALUES (9, 4.8);
+INSERT INTO RATING VALUES (10, 4.4);
+INSERT INTO RATING VALUES (11, 4.0);
+INSERT INTO RATING VALUES (12, 4.3);
+INSERT INTO RATING VALUES (13, 4.7);
+INSERT INTO RATING VALUES (14, 4.2);
+INSERT INTO RATING VALUES (15, 4.1); 
